@@ -46,12 +46,35 @@ public class ProductService {
                     HttpStatus.CONFLICT
             );
         }
+        datos.put("mensaje","se guardo correctamente el producto");
+        if (products.getId()>0)
+            datos.put("mensaje","se actualizo correctamente el producto");
         productsRepository.save(products);
         datos.put("data",products);
-        datos.put("mensaje","se guardo correctamente el producto");
+
         return new ResponseEntity<>(
                 datos,
                 HttpStatus.CREATED
         );
     }
+
+    public ResponseEntity<Object> deletedProduct(Long id){
+        HashMap<String,Object> datos2 = new HashMap<>();
+        boolean existe=this.productsRepository.existsById(id);
+        if(!existe){
+            datos2.put("error",true);
+            datos2.put("mensaje","no existe un producto con ese id");
+            return new ResponseEntity<>(
+              datos2,
+              HttpStatus.CONFLICT
+            );
+            }
+        this.productsRepository.deleteById(id);
+        datos2.put("mensaje","el registro se ha eliminado corrctamente");
+            return new ResponseEntity<>(
+                    datos2,HttpStatus.ACCEPTED
+            );
+}
+
+
 }

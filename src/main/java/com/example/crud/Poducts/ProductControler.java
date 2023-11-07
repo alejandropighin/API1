@@ -34,5 +34,17 @@ private final ProductService productService;
         return this.productService.newProduct(products);
     }
 
+    @PutMapping
+    public ResponseEntity<Object> actualizarProducto(@RequestBody Products products){
+
+        return this.productService.newProduct(products);
+    }
+
+
+    @DeleteMapping("{productID}")
+    public ResponseEntity<Object> deletedProduct(@PathVariable Long productID){
+        return this.productService.deletedProduct(productID);
+    }
+
 
 }
